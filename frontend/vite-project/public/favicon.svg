@@ -1,0 +1,21 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="hiresync-logo-left" x1="4" y1="6" x2="22" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#0B8F68" />
+      <stop offset="100%" stopColor="#10B981" />
+    </linearGradient>
+    <linearGradient id="hiresync-logo-right" x1="26" y1="6" x2="44" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#10B981" />
+      <stop offset="100%" stopColor="#06C5D8" />
+    </linearGradient>
+    <linearGradient id="hiresync-play" x1="20" y1="18" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#F4F7F5" />
+      <stop offset="100%" stopColor="#C4ECE5" />
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="#111918" />
+  <rect x="2" y="2" width="44" height="44" rx="10" fill="#1C2625" stroke="#2B3835" stroke-width="1.5" />
+  <path d="M17 14L9 24L17 34" stroke="url(#hiresync-logo-left)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M31 14L39 24L31 34" stroke="url(#hiresync-logo-right)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M21 19.2C21 18.4 21.9 17.9 22.6 18.3L29.1 22.8C29.7 23.2 29.7 24.1 29.1 24.5L22.6 29C21.9 29.4 21 28.9 21 28.1V19.2Z" fill="url(#hiresync-play)" />
+</svg>

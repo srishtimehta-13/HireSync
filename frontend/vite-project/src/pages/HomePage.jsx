@@ -214,7 +214,7 @@ function HomePage() {
             </div>
             <h3 className="font-heading text-xl font-bold text-[#F4F7F5]">Isolated Sandbox Execution</h3>
             <p className="text-sm text-[#94A3A0] leading-relaxed">
-              Execute JavaScript, Python, and Java instantly via high-speed Piston sandbox containers. Verify test cases and benchmark time/space complexity.
+              Execute JavaScript, Python, and Java in secure online sandboxes. Verify test cases and benchmark time/space complexity.
             </p>
           </div>
         </div>

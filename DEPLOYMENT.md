@@ -1,8 +1,8 @@
 # HireSync: local development and deployment
 
 HireSync uses Clerk for authentication, MongoDB for application data, Stream for
-video/chat, and Piston for code execution. The frontend and backend are separate
-services. **Nothing in this guide has been deployed.**
+video/chat, and OnlineCompiler.io for code execution. The frontend and backend
+are separate services. **Nothing in this guide has been deployed.**
 
 ## Run locally
 
@@ -18,6 +18,11 @@ In Clerk, create an application and copy its publishable key and secret key. In
 MongoDB Atlas, create a database user, allow your development IP in Network
 Access, and copy the application connection string. In Stream, create an app and
 copy its API key and secret.
+
+Create an OnlineCompiler.io account and generate a REST API key in its API Keys
+page. Keep the key private: it belongs on the backend only, never in a `VITE_`
+variable or browser code. If an API key has been posted publicly, revoke it and
+create a replacement before using it.
 
 ### 2. Configure the backend
 
@@ -44,11 +49,13 @@ if (-not (Test-Path frontend\vite-project\.env)) {
 
 Set `VITE_CLERK_PUBLISHABLE_KEY` and `VITE_STREAM_API_KEY` to the matching
 Clerk and Stream values. For local use, `VITE_API_URL` should be
-`http://localhost:3000/api`. `VITE_PISTON_API_URL` defaults to the public
-Piston API; that endpoint now restricts execution to whitelisted users. Request
-Piston access or configure an authorized Piston service URL to run code.
+`http://localhost:3000/api`.
 Vite reads this file from `frontend/vite-project`; it does not load
 environment files placed inside `src`.
+
+The frontend sends code to the authenticated HireSync backend. The backend uses
+`ONLINECOMPILER_API_KEY` to call OnlineCompiler's Piston-compatible execution
+endpoint. Never put this key in frontend environment variables.
 
 ### 4. Start both services
 
@@ -78,7 +85,9 @@ Check `http://localhost:3000/health` for its health response.
 If session creation still fails, confirm both terminals are running, the
 frontend points to `http://localhost:3000/api`, the backend `DB_URL` is valid,
 MongoDB Atlas permits your current IP, and both Clerk keys belong to the same
-Clerk application.
+Clerk application. For code execution, set `ONLINECOMPILER_API_KEY` in
+`backend\.env` to your active OnlineCompiler REST API key and restart the
+backend.
 
 ## Deploy the backend to Render
 
@@ -99,9 +108,9 @@ Clerk application.
    `npm install` as its build command, and `npm start` as its start command.
 4. Enter the secret environment values when Render prompts you:
    `DB_URL`, `CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, `STREAM_API_KEY`,
-   `STREAM_API_SECRET`, `INNGEST_EVENT_KEY`, `INNGEST_SIGNING_KEY`, and
-   `CLIENT_URL`. Use the frontend's Vercel URL for `CLIENT_URL`; you can update
-   it after creating the Vercel project.
+   `STREAM_API_SECRET`, `ONLINECOMPILER_API_KEY`, `INNGEST_EVENT_KEY`,
+   `INNGEST_SIGNING_KEY`, and `CLIENT_URL`. Use the frontend's Vercel URL for
+   `CLIENT_URL`; you can update it after creating the Vercel project.
 5. Select **Apply** to create and deploy the backend. Render will show its
    service URL, such as `https://hiresync-backend.onrender.com`.
 6. Check `https://<your-render-service>.onrender.com/health`. A healthy API
@@ -123,7 +132,6 @@ and enter the same build command, start command, and environment variables.
    - `VITE_CLERK_PUBLISHABLE_KEY`: the publishable key for your Clerk app
    - `VITE_STREAM_API_KEY`: the API key for your Stream app
    - `VITE_API_URL`: `https://<your-render-service>.onrender.com/api`
-   - `VITE_PISTON_API_URL`: an authorized Piston API base URL, if you have one
 6. Select **Deploy** and wait for the build to finish. Vercel will provide the
    frontend URL.
 
@@ -140,6 +148,6 @@ The `vercel.json` rewrite keeps client-side routes working when opened directly.
 5. Sign in through the Vercel site, create a session, and check that a user and
    session record appear in the expected MongoDB database.
 
-Do not put `CLERK_SECRET_KEY`, `STREAM_API_SECRET`, or `DB_URL` in Vercel
-environment variables; those secrets belong only on the backend. Never publish
-or commit environment files.
+Do not put `CLERK_SECRET_KEY`, `STREAM_API_SECRET`, `ONLINECOMPILER_API_KEY`, or
+`DB_URL` in Vercel environment variables; those secrets belong only on the
+backend. Never publish or commit environment files.

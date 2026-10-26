@@ -25,5 +25,7 @@ services:
         sync: false
       - key: STREAM_API_SECRET
         sync: false
+      - key: ONLINECOMPILER_API_KEY
+        sync: false
       - key: CLIENT_URL
         sync: false

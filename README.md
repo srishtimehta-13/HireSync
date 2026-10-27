@@ -194,7 +194,7 @@ browser build.
 
 The live application is available at:
 
-- **Frontend:** [https://hire-sync-rose.vercel.app](https://hire-sync-rose.vercel.app)
+- **Frontend:** [https://hire-sync-d2om-woad.vercel.app/](https://hire-sync-d2om-woad.vercel.app/)
 - **Backend health check:** [https://hiresync-pgur.onrender.com/health](https://hiresync-pgur.onrender.com/health)
 
 The frontend is hosted on Vercel and the API on Render. For deployment steps,
